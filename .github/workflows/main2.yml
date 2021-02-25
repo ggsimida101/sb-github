@@ -1,0 +1,22 @@
+name: merge-from-sync
+on:
+  workflow_dispatch:
+jobs:
+  merge-branch:
+    env:
+      PAT: ${{ secrets.PAT }}
+    runs-on: ubuntu-latest
+    steps:  
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+
+      - name: Merge master from sync	
+        uses: devmasx/merge-branch@v1.3.1	
+        if: env.PAT	
+        with:	
+          type: now	
+          from_branch: master
+          target_branch: main
+          github_token: ${{ secrets.PAT }}
